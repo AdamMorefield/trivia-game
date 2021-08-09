@@ -1,66 +1,3 @@
-// To run this assignment, right click on index.html in the Visual Studio Code file explorer to the left
-// and select "Open with Live Server"
-
-// YOUR CODE HERE!
-//variable.remove() removes the html element assigned to that variable
-//Step 1: Render view 1
-//  View 1: Show title and start button
-//      If user hits start button, render view 2
-//
-//
-//Step 2: Render view 2
-//  View 2: Shows title, points, category, question box, input box, submit button
-//      remove start button OR view 1
-//      render current points (starting at 0)
-//      get and render a random category, limited to 100 at a time
-//      get and render a random question from that category
-//      render input/textarea, assign user input to a variable
-//      userInput.toLowerCase(), answer.toLowerCase();
-//      If user's answer is correct (userInput === answer)
-//          score += 1
-//          display "Correct", render next question
-//      Else if user's answer is incorrect
-//          set score to 0, display "Game over"
-//
-//class View {
-//  constructor() {//possible parameters: answer(the user's answer is passed in when submit button is pressed),
-//      this.index = index
-//  }
-//  renderView() //remove the start button, display points, category, question, input, submit btn, isGameOn = true
-//
-//  getCategory() //use jservice.io/api/random to get a random question, get the ID of that question, and add that id to an array of used categories
-//
-//  getQuestion() //take the id from getCategory, use this.index to get a question from that id, and return the question
-//
-//  checkAnswer() //if(userInput.toLowerCase() === answer.toLowerCase()){points += 1; getCategory()/getQuestion()/renderView()} else {
-//  input.remove(); submit.remove(); let gameOver = document.createElement("h2"); gameOver.innerHTML = `Game Over! br/ Final Score: ${score}`;
-//  let retry = document.createElement("button"); retry.innerHTML = "Retry?"; isGameOn = false
-//  retry.addEventListener("click", renderView())}
-//}
-//
-//
-//
-// fetch("https://jservice.io/api/category?id=1849")
-//     .then(response => response.json())
-//     .then(parsedResponse => {
-//         console.log(parsedResponse)
-//         console.log(parsedResponse.clues[1].question)
-//         console.log(parsedResponse.clues[1].answer)
-//     })
-
-// fetch("https://jservice.io/api/random")
-//     .then(response => response.json())
-//     .then(parsedResponse => {
-//         console.log(parsedResponse)
-//         console.log(parsedResponse[0].category.id) //this gets a random question, grabs the id off that question, giving access to a random category
-//         //use this url to get a random question, cycle through all questions attached to that category id, add that category id to an array of used categories
-//         //use this url again to get a new random question. if the question has already been used, get another question.
-//     })
-//
-//
-//
-// there are 18,418 categories
-
 let gameContainer = document.getElementById("container")
 let startBtn = document.createElement("button")
 let pointsHTML = document.createElement("h2")
@@ -129,13 +66,11 @@ class View {
             .then(response => response.json())
             .then(parsedResponse => {
                 this.renderGame()
-                console.log(parsedResponse)
                 this.category = parsedResponse[0].category.id
 
                 fetch(`https://jservice.io/api/category?id=${this.category}`)
                     .then(response => response.json())
                     .then(parsedResponse => {
-                        console.log(parsedResponse)
                         this.displayCategory(parsedResponse)
 
                         this.displayQuestion(parsedResponse)
@@ -149,12 +84,10 @@ class View {
             .then(response => response.json())
             .then(parsedResponse => {
                 this.category = parsedResponse[0].category.id
-                console.log(this.category)
 
                 fetch(`https://jservice.io/api/category?id=${this.category}`)
                     .then(response => response.json())
                     .then(parsedResponse => {
-                        console.log(parsedResponse)
                         this.displayCategory(parsedResponse)
                         this.displayQuestion(parsedResponse)
 
@@ -192,7 +125,6 @@ class View {
         this.userAnswer = inputBox.value
         if (this.userAnswer.toLowerCase() === this.answer.toLowerCase()) {
             this.questionsArray.splice(this.classIndex, 1)
-            console.log(this.questionsArray)
             correctHTML.innerHTML = "Correct"
             gameContainer.append(correctHTML)
             this.score += 1
@@ -219,7 +151,7 @@ class View {
         inputBox.remove()
         submitBtn.remove()
 
-        
+
         gameOverHTML.innerHTML = `Incorrect! Game Over! Final score: ${this.finalScore}`
         gameContainer.append(gameOverHTML)
         retryHTML.innerHTML = "Try again?"
