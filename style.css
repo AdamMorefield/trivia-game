@@ -1,1 +1,33 @@
 /* Write your CSS Here. */
+html {
+    background-color:blanchedalmond;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    display: flex;
+    background-color: whitesmoke;
+    border: black solid;
+    border-radius:5%;
+    padding: 2rem;
+    margin-top: 3rem;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    width: 75px;
+    margin-top: 1rem;
+}
+
+.button:hover{
+    background-color: lightcyan;
+}
+
+.button:active{
+    background-color: lightskyblue;
+}

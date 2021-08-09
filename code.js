@@ -96,7 +96,7 @@ class View {
         title.innerHTML = "JService Jeopardy"
         gameContainer.append(title)
 
-        startBtn.classList = "start"
+        startBtn.classList = "start button"
         startBtn.innerHTML = "Begin!"
         gameContainer.append(startBtn)
     }
